@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="ja">
 <head>
@@ -21,7 +20,8 @@ label{display:block;margin:14px 0 7px;font-weight:700}
 input,select,textarea{width:100%;padding:13px;border:1px solid #7254a8;border-radius:12px;background:#0c0820;color:white;font:inherit}
 textarea{min-height:100px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn{display:block;width:100%;margin-top:14px;padding:14px;border:0;border-radius:999px;background:linear-gradient(100deg,var(--pink),var(--purple));color:white;font-weight:900;font-size:16px}
+.btn{display:block;width:100%;margin-top:14px;padding:14px;border:0;border-radius:999px;background:linear-gradient(100deg,var(--pink),var(--purple));color:white;font-weight:900;font-size:16px;cursor:pointer}
+.btn:active{transform:scale(.98)}
 .result{display:none;margin-top:14px;padding:14px;border:1px dashed #9d76ff;border-radius:12px;background:#0b071b;line-height:1.7}
 .features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .feature{padding:13px;border-radius:14px;background:#100a2b;border:1px solid #453073}
@@ -35,21 +35,13 @@ textarea{min-height:100px}
 .no{background:#29233b;color:white;border:1px solid #615675!important}
 footer{text-align:center;color:#aaa0c6;padding:20px;font-size:12px}
 @media(max-width:560px){.row,.features{grid-template-columns:1fr}.panel{padding:16px}}
-/* トップ画像 */
-.hero-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: 520px;
-  object-fit: cover;
-  object-position: center;
-  border-radius: 16px;
-  margin: 20px auto;
-}
+.hero-image{display:block;width:100%;height:auto;max-height:520px;object-fit:cover;object-position:center;border-radius:16px;margin:20px auto}
 </style>
 </head>
 <body>
+
 <img src="hero.png" alt="みんなの作品検索" class="hero-image">
+
 <div class="age" id="ageGate">
   <div class="agecard">
     <div style="font-size:42px">🔞</div>
@@ -69,11 +61,14 @@ footer{text-align:center;color:#aaa0c6;padding:20px;font-size:12px}
 </header>
 
 <main>
+
 <section class="panel">
   <h2>🍷 性癖ソムリエ</h2>
   <p class="intro">好みや気分を自由な言葉で教えてね。2次元・3次元を問わず、希望に合う作品を探すための相談欄です。</p>
+
   <label for="preference">どんな作品を探してる？</label>
   <textarea id="preference" maxlength="500" placeholder="例：ストーリー重視、コメディ系、絵柄がきれいな作品が好き…"></textarea>
+
   <div class="row">
     <div>
       <label for="dimension">作品タイプ</label>
@@ -94,15 +89,18 @@ footer{text-align:center;color:#aaa0c6;padding:20px;font-size:12px}
       </select>
     </div>
   </div>
+
   <button type="button" class="btn" id="ask">✨ 性癖ソムリエに相談する</button>
   <div class="result" id="askResult"></div>
   <p class="small">現在はデザイン試作版です。AIによる分析はAIサービス接続後に有効になります。</p>
 </section>
 
-<section class="panel">
+<section class="panel" id="searchSection">
   <h2>🔎 キーワードで作品を探す</h2>
+
   <label for="keyword">作品名・キーワード</label>
   <input id="keyword" placeholder="作品名やジャンルなど">
+
   <div class="row">
     <div>
       <label for="category">ジャンル</label>
@@ -121,70 +119,23 @@ footer{text-align:center;color:#aaa0c6;padding:20px;font-size:12px}
       </select>
     </div>
   </div>
+
   <button type="button" class="btn" id="search">作品を検索する</button>
   <div class="result" id="searchResult"></div>
-  <p class="small">現在は作品データAPI接続前のため、実際の検索結果はまだ表示されません。</p>
-  <section class="panel" id="ranking">
-  <h2>🏆 人気ランキング</h2>
-  <div class="row">
-    <button type="button" class="btn" id="rank2d" onclick="showRanking('2d')">🎨 2次元</button>
-    <button type="button" class="btn" id="rank3d" onclick="showRanking('3d')">📸 3次元</button>
-  </div>
-  <div id="rankingList" style="margin-top:16px"></div>
-  <p class="small">※現在は表示確認用のサンプルランキングです。</p>
+  <p class="small">現在は動作確認用のサンプル作品を表示しています。実際の作品データはAPI接続後に表示する予定です。</p>
 </section>
-<script>
-const sampleRankings = {
-  '2d': [
-    {title:'サンプル作品A', genre:'アニメ・漫画'},
-    {title:'サンプル作品B', genre:'同人作品'},
-    {title:'サンプル作品C', genre:'ファンタジー'}
-  ],
-  '3d': [
-    {title:'サンプル作品D', genre:'実写作品'},
-    {title:'サンプル作品E', genre:'ドラマ'},
-    {title:'サンプル作品F', genre:'コメディ'}
-  ]
-};
-function showRanking(type) {
-  const list = document.getElementById('rankingList');
-  list.innerHTML = sampleRankings[type].map(function(work, index) {
-    return '<div style="padding:14px 4px;border-bottom:1px solid #453073">' +
-      '<strong style="color:#ff8bdc">第' + (index + 1) + '位</strong>　' +
-      '<strong>' + work.title + '</strong><br>' +
-      '<span class="small">' + work.genre + '</span></div>';
-  }).join('');
-}
-showRanking('2d');
-   const sampleRankings = {
-  '2d': [
-    {title:'サンプル作品A', genre:'アニメ・漫画'},
-    {title:'サンプル作品B', genre:'同人作品'},
-    {title:'サンプル作品C', genre:'ファンタジー'}
-  ],
-  '3d': [
-    {title:'サンプル作品D', genre:'実写作品'},
-    {title:'サンプル作品E', genre:'ドラマ'},
-    {title:'サンプル作品F', genre:'コメディ'}
-  ]
-};
-function showRanking(type) {
-  const list = document.getElementById('rankingList');
-  list.innerHTML = sampleRankings[type].map(function(work, index) {
-    return '<div style="padding:14px 4px;border-bottom:1px solid #453073">' +
-      '<strong style="color:#ff8bdc">第' + (index + 1) + '位</strong>　' +
-      '<strong>' + work.title + '</strong><br>' +
-      '<span class="small">' + work.genre + '</span></div>';
-  }).join('');
-}
-document.getElementById('rank2d').addEventListener('click', function() {
-  showRanking('2d');
-});
-document.getElementById('rank3d').addEventListener('click', function() {
-  showRanking('3d');
-});
-showRanking('2d');
-</script>
+
+<section class="panel" id="ranking">
+  <h2>🏆 人気ランキング</h2>
+  <p class="intro">作品タイプを選んで、サンプルランキングを切り替えられます。</p>
+
+  <div class="row">
+    <button type="button" class="btn" id="rank2d">🎨 2次元</button>
+    <button type="button" class="btn" id="rank3d">📸 3次元</button>
+  </div>
+
+  <div id="rankingList" style="margin-top:16px"></div>
+  <p class="small">※現在は表示確認用のサンプルランキングです。実際の人気順ではありません。</p>
 </section>
 
 <section class="panel">
@@ -203,7 +154,7 @@ showRanking('2d');
     <div class="feature">
       <div class="emoji">💖</div>
       <h3>3. 作品を探す</h3>
-      <p class="small">接続後、作品情報や詳細リンクを表示する予定。</p>
+      <p class="small">実際の作品情報や詳細リンクは、データ連携後に表示する予定です。</p>
     </div>
   </div>
 </section>
@@ -214,56 +165,99 @@ showRanking('2d');
 <footer>© みんなの作品検索 · 試作版</footer>
 
 <script>
-const gate = document.getElementById('ageGate');
+(function(){
 
-document.getElementById('yes').addEventListener('click', function(){
-  gate.style.display = 'none';
-});
+  const gate = document.getElementById('ageGate');
 
-document.getElementById('no').addEventListener('click', function(){
-  document.body.innerHTML = '<main style="text-align:center;margin:20vh auto"><h1>閲覧できません</h1><p>18歳未満の方は利用できません。</p></main>';
-});
+  document.getElementById('yes').addEventListener('click', function(){
+    gate.style.display = 'none';
+  });
 
-document.getElementById('ask').addEventListener('click', function(){
-  const t = document.getElementById('preference').value.trim();
-  const b = document.getElementById('askResult');
-  b.style.display = 'block';
-  b.textContent = t
-    ? '相談内容を受け付けました。希望：' + document.getElementById('dimension').value + '／重視点：' + document.getElementById('mood').value + '。現在はAI接続前のため、実際のおすすめ結果はまだ表示できません。'
-    : 'まずは、探したい作品の好みや雰囲気を入力してね。';
-});
+  document.getElementById('no').addEventListener('click', function(){
+    document.body.innerHTML = '<main style="text-align:center;margin:20vh auto"><h1>閲覧できません</h1><p>18歳未満の方は利用できません。</p></main>';
+  });
 
-document.getElementById('search').addEventListener('click', function(){
-  const q = document.getElementById('keyword').value.trim().toLowerCase();
-  const category = document.getElementById('category').value;
-  const kind = document.getElementById('kind').value;
-  const b = document.getElementById('searchResult');
+  document.getElementById('ask').addEventListener('click', function(){
+    const t = document.getElementById('preference').value.trim();
+    const b = document.getElementById('askResult');
+
+    b.style.display = 'block';
+    b.textContent = t
+      ? '相談内容を受け付けました。希望：' + document.getElementById('dimension').value + '／重視点：' + document.getElementById('mood').value + '。現在はAI接続前のため、実際のおすすめ結果はまだ表示できません。'
+      : 'まずは、探したい作品の好みや雰囲気を入力してね。';
+  });
+
   const works = [
     {title:'サンプル作品A', category:'動画作品', kind:'3次元', tags:'ドラマ 恋愛 実写'},
     {title:'サンプル作品B', category:'同人作品', kind:'2次元', tags:'漫画 アニメ ファンタジー'},
     {title:'サンプル作品C', category:'動画作品', kind:'3次元', tags:'コメディ 日常 実写'}
   ];
-  const results = works.filter(function(work){
-    const text = (work.title + ' ' + work.tags).toLowerCase();
-    const matchKeyword = !q || text.includes(q);
-    const matchCategory = category === 'すべて' || work.category === category;
-    const matchKind = kind === '2次元・3次元どちらも' || work.kind === kind;
-    return matchKeyword && matchCategory && matchKind;
+
+  document.getElementById('search').addEventListener('click', function(){
+    const q = document.getElementById('keyword').value.trim().toLowerCase();
+    const category = document.getElementById('category').value;
+    const kind = document.getElementById('kind').value;
+    const b = document.getElementById('searchResult');
+
+    const results = works.filter(function(work){
+      const text = (work.title + ' ' + work.tags).toLowerCase();
+
+      return (!q || text.includes(q)) &&
+        (category === 'すべて' || work.category === category) &&
+        (kind === '2次元・3次元どちらも' || work.kind === kind);
+    });
+
+    b.style.display = 'block';
+
+    if(!results.length){
+      b.textContent = '条件に合うサンプル作品はありません。別のキーワードを試してね。';
+      return;
+    }
+
+    b.innerHTML = '<p>検索結果：' + results.length + '件</p>' +
+      results.map(function(work){
+        return '<div style="padding:12px 0;border-bottom:1px solid #453073">' +
+          '<strong>' + work.title + '</strong><br>' +
+          '<span class="small">' + work.category + ' ／ ' + work.kind + '</span><br>' +
+          '<span class="small">キーワード：' + work.tags + '</span></div>';
+      }).join('');
   });
-  b.style.display = 'block';
-  if(results.length === 0){
-    b.textContent = '条件に合うサンプル作品はありません。別のキーワードを試してね。';
-    return;
-  }
-  b.innerHTML = '<p>検索結果：' + results.length + '件</p>' +
-    results.map(function(work){
-      return '<div style="padding:12px 0;border-bottom:1px solid #453073">' +
+
+  const sampleRankings = {
+    '2d': [
+      {title:'サンプル作品A', genre:'アニメ・漫画'},
+      {title:'サンプル作品B', genre:'同人作品'},
+      {title:'サンプル作品C', genre:'ファンタジー'}
+    ],
+    '3d': [
+      {title:'サンプル作品D', genre:'実写作品'},
+      {title:'サンプル作品E', genre:'ドラマ'},
+      {title:'サンプル作品F', genre:'コメディ'}
+    ]
+  };
+
+  function showRanking(type){
+    const list = document.getElementById('rankingList');
+
+    list.innerHTML = sampleRankings[type].map(function(work, index){
+      return '<div style="padding:14px 4px;border-bottom:1px solid #453073">' +
+        '<strong style="color:#ff8bdc">第' + (index + 1) + '位</strong>　' +
         '<strong>' + work.title + '</strong><br>' +
-        '<span class="small">' + work.category + ' ／ ' + work.kind + '</span><br>' +
-        '<span class="small">キーワード：' + work.tags + '</span>' +
-        '</div>';
+        '<span class="small">' + work.genre + '</span></div>';
     }).join('');
-});
+  }
+
+  document.getElementById('rank2d').addEventListener('click', function(){
+    showRanking('2d');
+  });
+
+  document.getElementById('rank3d').addEventListener('click', function(){
+    showRanking('3d');
+  });
+
+  showRanking('2d');
+
+})();
 </script>
 </body>
 </html>
