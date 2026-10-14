@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>みんなの作品検索</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #f5f6fa;
+      color: #222;
+    }
+    header {
+      background: #252b45;
+      color: white;
+      padding: 24px 16px;
+      text-align: center;
+    }
+    header h1 { margin: 0 0 10px; }
+    header p { margin: 0; }
+    main {
+      max-width: 680px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+    .search {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 2px 10px #0001;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+    }
+    input, select { border: 1px solid #ccc; }
+    button {
+      border: 0;
+      background: #525fce;
+      color: white;
+      font-weight: bold;
+    }
+    .note {
+      background: white;
+      padding: 18px;
+      margin-top: 18px;
+      border-radius: 12px;
+      line-height: 1.8;
+    }
+    footer {
+      text-align: center;
+      color: #666;
+      padding: 28px 12px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>みんなの作品検索</h1>
+    <p>あなたのお気に入り作品を見つけよう</p>
+  </header>
+  <main>
+    <section class="search">
+      <h2>作品を探す</h2>
+      <form id="searchForm">
+        <label for="category">作品ジャンル</label>
+        <select id="category">
+          <option value="video">動画作品</option>
+          <option value="doujin">同人作品</option>
+        </select>
+        <label for="keyword">キーワード</label>
+        <input id="keyword" type="search"
+          placeholder="作品名・出演者など">
+        <button type="submit">作品を検索する</button>
+      </form>
+      <p id="message">検索機能は準備中です。</p>
+    </section>
+    <section class="note">
+      <h2>このサイトについて</h2>
+      <p>みんなの作品検索は、気になる作品を探すためのサイトです。</p>
+      <p>今後、作品情報や検索機能を追加していきます。</p>
+    </section>
+  </main>
+  <footer>
+    <p>掲載情報は各サービスの規約に従って利用します。</p>
+    <p>20歳未満の方の利用はご遠慮ください。</p>
+  </footer>
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('message').textContent =
+        '検索機能は現在準備中です。';
+    });
+  </script>
+</body>
+</html>
