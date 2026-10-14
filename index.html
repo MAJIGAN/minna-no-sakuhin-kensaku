@@ -173,12 +173,35 @@ document.getElementById('ask').addEventListener('click', function(){
 });
 
 document.getElementById('search').addEventListener('click', function(){
-  const q = document.getElementById('keyword').value.trim();
+  const q = document.getElementById('keyword').value.trim().toLowerCase();
+  const category = document.getElementById('category').value;
+  const kind = document.getElementById('kind').value;
   const b = document.getElementById('searchResult');
+  const works = [
+    {title:'サンプル作品A', category:'動画作品', kind:'3次元', tags:'ドラマ 恋愛 実写'},
+    {title:'サンプル作品B', category:'同人作品', kind:'2次元', tags:'漫画 アニメ ファンタジー'},
+    {title:'サンプル作品C', category:'動画作品', kind:'3次元', tags:'コメディ 日常 実写'}
+  ];
+  const results = works.filter(function(work){
+    const text = (work.title + ' ' + work.tags).toLowerCase();
+    const matchKeyword = !q || text.includes(q);
+    const matchCategory = category === 'すべて' || work.category === category;
+    const matchKind = kind === '2次元・3次元どちらも' || work.kind === kind;
+    return matchKeyword && matchCategory && matchKind;
+  });
   b.style.display = 'block';
-  b.textContent = q
-    ? '「' + q + '」で検索する準備ができました。現在は作品データAPI接続前のため、実際の検索結果はまだ表示できません。'
-    : '作品名やキーワードを入力してね。';
+  if(results.length === 0){
+    b.textContent = '条件に合うサンプル作品はありません。別のキーワードを試してね。';
+    return;
+  }
+  b.innerHTML = '<p>検索結果：' + results.length + '件</p>' +
+    results.map(function(work){
+      return '<div style="padding:12px 0;border-bottom:1px solid #453073">' +
+        '<strong>' + work.title + '</strong><br>' +
+        '<span class="small">' + work.category + ' ／ ' + work.kind + '</span><br>' +
+        '<span class="small">キーワード：' + work.tags + '</span>' +
+        '</div>';
+    }).join('');
 });
 </script>
 </body>
