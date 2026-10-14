@@ -124,6 +124,67 @@ footer{text-align:center;color:#aaa0c6;padding:20px;font-size:12px}
   <button type="button" class="btn" id="search">作品を検索する</button>
   <div class="result" id="searchResult"></div>
   <p class="small">現在は作品データAPI接続前のため、実際の検索結果はまだ表示されません。</p>
+  <section class="panel" id="ranking">
+  <h2>🏆 人気ランキング</h2>
+  <div class="row">
+    <button type="button" class="btn" id="rank2d" onclick="showRanking('2d')">🎨 2次元</button>
+    <button type="button" class="btn" id="rank3d" onclick="showRanking('3d')">📸 3次元</button>
+  </div>
+  <div id="rankingList" style="margin-top:16px"></div>
+  <p class="small">※現在は表示確認用のサンプルランキングです。</p>
+</section>
+<script>
+const sampleRankings = {
+  '2d': [
+    {title:'サンプル作品A', genre:'アニメ・漫画'},
+    {title:'サンプル作品B', genre:'同人作品'},
+    {title:'サンプル作品C', genre:'ファンタジー'}
+  ],
+  '3d': [
+    {title:'サンプル作品D', genre:'実写作品'},
+    {title:'サンプル作品E', genre:'ドラマ'},
+    {title:'サンプル作品F', genre:'コメディ'}
+  ]
+};
+function showRanking(type) {
+  const list = document.getElementById('rankingList');
+  list.innerHTML = sampleRankings[type].map(function(work, index) {
+    return '<div style="padding:14px 4px;border-bottom:1px solid #453073">' +
+      '<strong style="color:#ff8bdc">第' + (index + 1) + '位</strong>　' +
+      '<strong>' + work.title + '</strong><br>' +
+      '<span class="small">' + work.genre + '</span></div>';
+  }).join('');
+}
+showRanking('2d');
+   const sampleRankings = {
+  '2d': [
+    {title:'サンプル作品A', genre:'アニメ・漫画'},
+    {title:'サンプル作品B', genre:'同人作品'},
+    {title:'サンプル作品C', genre:'ファンタジー'}
+  ],
+  '3d': [
+    {title:'サンプル作品D', genre:'実写作品'},
+    {title:'サンプル作品E', genre:'ドラマ'},
+    {title:'サンプル作品F', genre:'コメディ'}
+  ]
+};
+function showRanking(type) {
+  const list = document.getElementById('rankingList');
+  list.innerHTML = sampleRankings[type].map(function(work, index) {
+    return '<div style="padding:14px 4px;border-bottom:1px solid #453073">' +
+      '<strong style="color:#ff8bdc">第' + (index + 1) + '位</strong>　' +
+      '<strong>' + work.title + '</strong><br>' +
+      '<span class="small">' + work.genre + '</span></div>';
+  }).join('');
+}
+document.getElementById('rank2d').addEventListener('click', function() {
+  showRanking('2d');
+});
+document.getElementById('rank3d').addEventListener('click', function() {
+  showRanking('3d');
+});
+showRanking('2d');
+</script>
 </section>
 
 <section class="panel">
