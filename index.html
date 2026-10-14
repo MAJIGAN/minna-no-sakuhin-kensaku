@@ -1,103 +1,173 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>みんなの作品検索</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background: #f5f6fa;
-      color: #222;
-    }
-    header {
-      background: #252b45;
-      color: white;
-      padding: 24px 16px;
-      text-align: center;
-    }
-    header h1 { margin: 0 0 10px; }
-    header p { margin: 0; }
-    main {
-      max-width: 680px;
-      margin: 24px auto;
-      padding: 0 16px;
-    }
-    .search {
-      background: white;
-      padding: 20px;
-      border-radius: 14px;
-      box-shadow: 0 2px 10px #0001;
-    }
-    input, select, button {
-      width: 100%;
-      padding: 13px;
-      margin-top: 10px;
-      font-size: 16px;
-      border-radius: 8px;
-    }
-    input, select { border: 1px solid #ccc; }
-    button {
-      border: 0;
-      background: #525fce;
-      color: white;
-      font-weight: bold;
-    }
-    .note {
-      background: white;
-      padding: 18px;
-      margin-top: 18px;
-      border-radius: 12px;
-      line-height: 1.8;
-    }
-    footer {
-      text-align: center;
-      color: #666;
-      padding: 28px 12px;
-      font-size: 13px;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>みんなの作品検索｜性癖ソムリエ</title>
+<style>
+:root{color-scheme:dark;--pink:#ff35ae;--purple:#a34dff;--blue:#35dcff}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#39105d,#0b061b 65%);color:#fff;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif}
+header{text-align:center;padding:30px 15px;background:linear-gradient(120deg,#220a45,#500b50);border-bottom:1px solid var(--pink)}
+.logo{font-size:clamp(27px,7vw,42px);font-weight:900;background:linear-gradient(90deg,var(--blue),white,var(--pink));color:transparent;background-clip:text}
+header p{color:#e7d8ff}
+main{max-width:850px;margin:auto;padding:14px}
+.panel{margin:17px 0;padding:20px;border-radius:20px;background:linear-gradient(145deg,#1b1040,#100820);border:1px solid #824aff;box-shadow:0 0 22px #8c32ff25}
+h2{margin:0 0 8px;color:#ff8bdc}
+.intro,.small{color:#cfc5e9;line-height:1.7}
+.small{font-size:12px}
+label{display:block;margin:14px 0 7px;font-weight:700}
+input,select,textarea{width:100%;padding:13px;border:1px solid #7254a8;border-radius:12px;background:#0c0820;color:white;font:inherit}
+textarea{min-height:100px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{display:block;width:100%;margin-top:14px;padding:14px;border:0;border-radius:999px;background:linear-gradient(100deg,var(--pink),var(--purple));color:white;font-weight:900;font-size:16px}
+.result{display:none;margin-top:14px;padding:14px;border:1px dashed #9d76ff;border-radius:12px;background:#0b071b;line-height:1.7}
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.feature{padding:13px;border-radius:14px;background:#100a2b;border:1px solid #453073}
+.emoji{font-size:26px}
+.age{position:fixed;inset:0;z-index:5;display:flex;align-items:center;justify-content:center;padding:18px;background:#070313f5}
+.agecard{max-width:440px;text-align:center;padding:25px 20px;border-radius:22px;border:2px solid var(--pink);background:linear-gradient(150deg,#29104b,#10071f);box-shadow:0 0 35px #ff2ca844}
+.agecard h2{font-size:25px}
+.ageactions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ageactions button{padding:13px 6px;border-radius:999px;font-weight:800;border:0}
+.yes{background:linear-gradient(90deg,var(--pink),var(--purple));color:white}
+.no{background:#29233b;color:white;border:1px solid #615675!important}
+footer{text-align:center;color:#aaa0c6;padding:20px;font-size:12px}
+@media(max-width:560px){.row,.features{grid-template-columns:1fr}.panel{padding:16px}}
+</style>
 </head>
 <body>
-  <header>
-    <h1>みんなの作品検索</h1>
-    <p>あなたのお気に入り作品を見つけよう</p>
-  </header>
-  <main>
-    <section class="search">
-      <h2>作品を探す</h2>
-      <form id="searchForm">
-        <label for="category">作品ジャンル</label>
-        <select id="category">
-          <option value="video">動画作品</option>
-          <option value="doujin">同人作品</option>
-        </select>
-        <label for="keyword">キーワード</label>
-        <input id="keyword" type="search"
-          placeholder="作品名・出演者など">
-        <button type="submit">作品を検索する</button>
-      </form>
-      <p id="message">検索機能は準備中です。</p>
-    </section>
-    <section class="note">
-      <h2>このサイトについて</h2>
-      <p>みんなの作品検索は、気になる作品を探すためのサイトです。</p>
-      <p>今後、作品情報や検索機能を追加していきます。</p>
-    </section>
-  </main>
-  <footer>
-    <p>掲載情報は各サービスの規約に従って利用します。</p>
-    <p>20歳未満の方の利用はご遠慮ください。</p>
-  </footer>
-  <script>
-    document.getElementById('searchForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      document.getElementById('message').textContent =
-        '検索機能は現在準備中です。';
-    });
-  </script>
+<div class="age" id="ageGate">
+  <div class="agecard">
+    <div style="font-size:42px">🔞</div>
+    <h2>18歳未満の閲覧は禁止です</h2>
+    <p>このサイトは成人向け作品を扱う可能性があります。18歳未満の方は利用できません。</p>
+    <div class="ageactions">
+      <button type="button" class="yes" id="yes">はい、18歳以上です</button>
+      <button type="button" class="no" id="no">いいえ</button>
+    </div>
+    <p class="small">※この確認は自己申告であり、年齢を証明するものではありません。</p>
+  </div>
+</div>
+
+<header>
+  <div class="logo">✨ みんなの作品検索 ✨</div>
+  <p>あなたの「好き」に出会う、作品検索ポータル</p>
+</header>
+
+<main>
+<section class="panel">
+  <h2>🍷 性癖ソムリエ</h2>
+  <p class="intro">好みや気分を自由な言葉で教えてね。2次元・3次元を問わず、希望に合う作品を探すための相談欄です。</p>
+  <label for="preference">どんな作品を探してる？</label>
+  <textarea id="preference" maxlength="500" placeholder="例：ストーリー重視、コメディ系、絵柄がきれいな作品が好き…"></textarea>
+  <div class="row">
+    <div>
+      <label for="dimension">作品タイプ</label>
+      <select id="dimension">
+        <option>2次元・3次元どちらも</option>
+        <option>2次元（アニメ・漫画・同人など）</option>
+        <option>3次元（実写作品など）</option>
+      </select>
+    </div>
+    <div>
+      <label for="mood">重視したいこと</label>
+      <select id="mood">
+        <option>好みに合うこと</option>
+        <option>ストーリー</option>
+        <option>雰囲気・世界観</option>
+        <option>出演者・キャラクター</option>
+        <option>新しい作品との出会い</option>
+      </select>
+    </div>
+  </div>
+  <button type="button" class="btn" id="ask">✨ 性癖ソムリエに相談する</button>
+  <div class="result" id="askResult"></div>
+  <p class="small">現在はデザイン試作版です。AIによる分析はAIサービス接続後に有効になります。</p>
+</section>
+
+<section class="panel">
+  <h2>🔎 キーワードで作品を探す</h2>
+  <label for="keyword">作品名・キーワード</label>
+  <input id="keyword" placeholder="作品名やジャンルなど">
+  <div class="row">
+    <div>
+      <label for="category">ジャンル</label>
+      <select id="category">
+        <option>すべて</option>
+        <option>動画作品</option>
+        <option>同人作品</option>
+      </select>
+    </div>
+    <div>
+      <label for="kind">作品タイプ</label>
+      <select id="kind">
+        <option>2次元・3次元どちらも</option>
+        <option>2次元</option>
+        <option>3次元</option>
+      </select>
+    </div>
+  </div>
+  <button type="button" class="btn" id="search">作品を検索する</button>
+  <div class="result" id="searchResult"></div>
+  <p class="small">現在は作品データAPI接続前のため、実際の検索結果はまだ表示されません。</p>
+</section>
+
+<section class="panel">
+  <h2>🌈 使い方</h2>
+  <div class="features">
+    <div class="feature">
+      <div class="emoji">📝</div>
+      <h3>1. 好みを入力</h3>
+      <p class="small">好きなジャンルや雰囲気を自由に入力。</p>
+    </div>
+    <div class="feature">
+      <div class="emoji">🪄</div>
+      <h3>2. 条件を選ぶ</h3>
+      <p class="small">2次元・3次元や重視したい点を指定。</p>
+    </div>
+    <div class="feature">
+      <div class="emoji">💖</div>
+      <h3>3. 作品を探す</h3>
+      <p class="small">接続後、作品情報や詳細リンクを表示する予定。</p>
+    </div>
+  </div>
+</section>
+
+<p class="small">成人向けコンテンツを扱う場合は、法律・各サービスの規約・年齢制限を遵守してください。</p>
+</main>
+
+<footer>© みんなの作品検索 · 試作版</footer>
+
+<script>
+const gate = document.getElementById('ageGate');
+
+document.getElementById('yes').addEventListener('click', function(){
+  gate.style.display = 'none';
+});
+
+document.getElementById('no').addEventListener('click', function(){
+  document.body.innerHTML = '<main style="text-align:center;margin:20vh auto"><h1>閲覧できません</h1><p>18歳未満の方は利用できません。</p></main>';
+});
+
+document.getElementById('ask').addEventListener('click', function(){
+  const t = document.getElementById('preference').value.trim();
+  const b = document.getElementById('askResult');
+  b.style.display = 'block';
+  b.textContent = t
+    ? '相談内容を受け付けました。希望：' + document.getElementById('dimension').value + '／重視点：' + document.getElementById('mood').value + '。現在はAI接続前のため、実際のおすすめ結果はまだ表示できません。'
+    : 'まずは、探したい作品の好みや雰囲気を入力してね。';
+});
+
+document.getElementById('search').addEventListener('click', function(){
+  const q = document.getElementById('keyword').value.trim();
+  const b = document.getElementById('searchResult');
+  b.style.display = 'block';
+  b.textContent = q
+    ? '「' + q + '」で検索する準備ができました。現在は作品データAPI接続前のため、実際の検索結果はまだ表示できません。'
+    : '作品名やキーワードを入力してね。';
+});
+</script>
 </body>
 </html>
